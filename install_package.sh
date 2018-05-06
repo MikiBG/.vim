@@ -5,6 +5,6 @@
 
 URL=$1
 NAME=${1##*/}
-git submodule add $URL ./pack/plugins/start/$NAME
+git submodule add $URL ./pack/plugins/start/
 git add .
 git commit -m "add package $NAME"
