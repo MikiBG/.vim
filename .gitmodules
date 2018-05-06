@@ -4,6 +4,3 @@
 [submodule "pack/plugins/start/vim-repeat"]
 	path = pack/plugins/start/vim-repeat
 	url = https://github.com/tpope/vim-repeat.git
-[submodule "pack/plugins/start/Templates.git"]
-	path = pack/plugins/start/Templates.git
-	url = https://github.com/MikiBG/Templates.git
