@@ -1,10 +1,12 @@
 #!/bin/bash
 # install package.
 # Usage:
-#   ./install_package.sh <repo's URL>
+#   ./install_package.sh "repo's URL"
 
 URL=$1
 NAME=${1##*/}
-git submodule add $URL ./pack/plugins/start/$NAME
+cd ./pack/plugins/start
+git submodule add $URL
 git add .
 git commit -m "add package $NAME"
+cd ../../../
