@@ -1,5 +1,5 @@
 " Miguel Bello Gamboa
-" 13/12/2016
+" 04/05/2018
 
 
 "-------------------------------------------------------------- 
@@ -24,7 +24,7 @@ let mapleader = ","
 let g:mapleader = ","
 
 " Fast saving
-nmap <leader>w :w!<cr>
+nnoremap <leader>w :w!<cr>
 
 "-------------------------------------------------------------- 
 " FINDING FILES
@@ -75,9 +75,10 @@ set showmatch
 set mat=2
 
 " No annoying sound on errors
-set noerrorbells
-set novisualbell
-set t_vb=
+" set noerrorbells
+" set novisualbell
+set vb t_vb=
+" timeout length used for mapping delays
 set tm=500
 
 "-------------------------------------------------------------- 
@@ -96,8 +97,8 @@ set hlsearch
 set incsearch
 
 " Map <Space> to / (search) and Ctrl-<Space> to ? (backwards search)
-map <space> /
-map <c-space> ?
+noremap <space> /
+noremap <c-space> ?
 
 "-------------------------------------------------------------- 
 " COLORS AND FONTS
@@ -165,38 +166,38 @@ map j gj
 map k gk
 
 " Disable highlight when <leader><cr> is pressed
-map <silent> <leader><cr> :noh<cr>
+noremap <silent> <leader><cr> :noh<cr>
 
-" Smart way to move between windows
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-h> <C-W>h
-map <C-l> <C-W>l
+" " Smart way to move between windows
+" noremap <C-j> <C-W>j
+" noremap <C-k> <C-W>k
+" noremap <C-h> <C-W>h
+" noremap <C-l> <C-W>l
 
-" Close the current buffer
-map <leader>bd :Bclose<cr>
+" " Close the current buffer
+" map <leader>bd :Bclose<cr>
 
-" Close all the buffers
-map <leader>ba :1,1000 bd!<cr>
+" " Close all the buffers
+" map <leader>ba :1,1000 bd!<cr>
 
-" Useful mappings for managing tabs
-map <leader>tn :tabnew<cr>
-map <leader>to :tabonly<cr>
-map <leader>tc :tabclose<cr>
-map <leader>tm :tabmove
+" " Useful mappings for managing tabs
+" map <leader>tn :tabnew<cr>
+" map <leader>to :tabonly<cr>
+" map <leader>tc :tabclose<cr>
+" map <leader>tm :tabmove
 
-" Opens a new tab with the current buffer's path
-map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
+" " Opens a new tab with the current buffer's path
+" map <leader>te :tabedit <c-r>=expand("%:p:h")<cr>/
 
-" Switch CWD to the directory of the open buffer
-map <leader>cd :cd %:p:h<cr>:pwd<cr>
+" " Switch CWD to the directory of the open buffer
+" map <leader>cd :cd %:p:h<cr>:pwd<cr>
 
-" Specify the behavior when switching between buffers 
-try
-  set switchbuf=useopen,usetab,newtab
-  set stal=2
-catch
-endtry
+" " Specify the behavior when switching between buffers 
+" try
+"   set switchbuf=useopen,usetab,newtab
+"   set stal=2
+" catch
+" endtry
 
 " Return to last edit position when opening files (You want this!)
 autocmd BufReadPost *
@@ -225,13 +226,13 @@ set spelllang=en
 " set spellfile=$HOME/Dropbox/en.utf-8.add
 
 " Pressing ,ss will toggle and untoggle spell checking
-map <leader>ss :setlocal spell!<cr>
+noremap <leader>ss :setlocal spell!<cr>
 
 "-------------------------------------------------------------- 
 " MISC
 "-------------------------------------------------------------- 
 " Toggle paste mode on and off
-map <leader>pp :setlocal paste!<cr>
+noremap <leader>pp :setlocal paste!<cr>
 
 " Delete trailing white space on save, useful for Python and 
 func! DeleteTrailingWS()
@@ -283,21 +284,34 @@ endfunction
 " EDIT LATEX
 "-------------------------------------------------------------- 
 " to compile latex file
-map <leader>lm :!pdflatex % <CR>
+noremap <leader>ll :w <CR> :!pdflatex % <CR>
 
 " to show latex file
-map <leader>lv :! evince %:r.pdf & <CR>
+noremap <leader>lv :! evince %:r.pdf & <CR>
 
 " TIP: if you write your \label's as \label{fig:something}, then if you
 " type in \ref{fig: and press <C-n> you will automatically cycle through
 " all the figure labels. Very useful!
 set iskeyword+=:
 
+" to jump directly to placeholder in a template
+inoremap <C-j> <Esc>/<++><CR><Esc>cf>
+
+" Completions using placeholders
+inoremap $$ $$<++><Esc>F$i
+inoremap () ()<++><Esc>F)i
+inoremap [] []<++><Esc>F]i
+inoremap {} {}<++><Esc>F}i
+
+inoremap (( \left(\right)<++><Esc>F\i
+inoremap [[ \left[\right]<++><Esc>F\i
+inoremap {{ \lefty\{\right}<++><Esc>F\i
+
 "-------------------------------------------------------------- 
 " EDIT GNUPLOT
 "-------------------------------------------------------------- 
 " Shortcut to plot
-map <leader>pl :w \| :!gnuplot %:t <CR>
+noremap <leader>pl :w \| :!gnuplot %:t <CR>
 " commenting in gnuplot scripts
 au BufRead,BufNewFile *.plt     set filetype=gnuplot
 autocmd FileType gnuplot setlocal commentstring=#\ %s
