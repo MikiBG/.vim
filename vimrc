@@ -111,7 +111,7 @@ set termguicolors
 colorscheme rupza
 " to toggle between colorschemes
 nnoremap <silent> <F9> :exec "color " .
-    \ ((g:colors_name == "rupza") ? "fruchtig" : "rupza")<CR>
+    \ ((g:colors_name == "rupza") ? "subtle_solo_light" : "rupza")<CR>
 
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -139,9 +139,9 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab == 4 spaces
-set shiftwidth=4
-set tabstop=4
+" 1 tab == 2 spaces
+set shiftwidth=2
+set tabstop=2
 
 " Linebreak on 80 characters
 set linebreak
@@ -298,6 +298,7 @@ set iskeyword+=:
 inoremap <C-j> <Esc>/<++><CR><Esc>cf>
 
 " Completions using placeholders
+inoremap "" ""<++><Esc>F"i
 inoremap $$ $$<++><Esc>F$i
 inoremap () ()<++><Esc>F)i
 inoremap [] []<++><Esc>F]i
@@ -305,13 +306,24 @@ inoremap {} {}<++><Esc>F}i
 
 inoremap (( \left(\right)<++><Esc>F\i
 inoremap [[ \left[\right]<++><Esc>F\i
-inoremap {{ \lefty\{\right}<++><Esc>F\i
+inoremap {{ \left\{\right\}<++><Esc>F\;i
+
+inoremap EE \begin{equation}<CR>\end{equation}<Esc>O
+inoremap FF \begin{figure}[!htb]<CR>\centering<CR>\includegraphics{}<CR>\caption{<++>}<CR>\end{figure}<Esc>2kf}i
 
 "-------------------------------------------------------------- 
-" EDIT GNUPLOT
+" EDIT JULIA
+"-------------------------------------------------------------- 
+" to comment lines of code
+au BufRead,BufNewFile *.jl set filetype=julia
+autocmd FileType julia setlocal commentstring=#\ %s
+"
+"-------------------------------------------------------------- 
+" PLOTTING
 "-------------------------------------------------------------- 
 " Shortcut to plot
-noremap <leader>pl :w \| :!gnuplot %:t <CR>
+autocmd FileType gnuplot noremap <leader>pl :w \| :!gnuplot %:t <CR>
+autocmd FileType python noremap <leader>pl :w \| :!python %:t <CR>
 " commenting in gnuplot scripts
 au BufRead,BufNewFile *.plt     set filetype=gnuplot
 autocmd FileType gnuplot setlocal commentstring=#\ %s
