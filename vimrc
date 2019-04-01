@@ -286,7 +286,7 @@ endfunction
 " to compile latex file
 noremap <leader>ll :w <CR> :!pdflatex % <CR>
 
-" to show latex file
+" to show generated pdf file
 noremap <leader>lv :! evince %:r.pdf & <CR>
 
 " TIP: if you write your \label's as \label{fig:something}, then if you
