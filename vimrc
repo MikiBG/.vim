@@ -1,5 +1,5 @@
 " Miguel Bello Gamboa
-" 04/05/2018
+" 26/04/2019
 
 
 "-------------------------------------------------------------- 
@@ -11,41 +11,45 @@ set nocompatible
 " Sets how many lines of history VIM has to remember
 set history=500
 
-" Enable filetype plugins
-filetype plugin on
-filetype indent on
+" Enable filetype detections, pluggins and automatic indentation
+filetype plugin indent on
 
 " Set to auto read when a file is changed from the outside
 set autoread
 
 " With a map leader it's possible to do extra key combinations
-" like <leader>w saves the current file
+" useful for defining keyboard shortcuts
 let mapleader = ","
-let g:mapleader = ","
-
-" Fast saving
-nnoremap <leader>w :w!<cr>
+" let g:mapleader = "," no hace falta...
 
 "-------------------------------------------------------------- 
 " FINDING FILES
 "-------------------------------------------------------------- 
-" Search down into subfolders
+" Search down into subfolders using :find
 set path+=**
 
 " Tabs auto-completion
 "set wildmode=longest,list,full
 set wildmenu
 
-"-------------------------------------------------------------- 
-" TAG JUMPING
-"-------------------------------------------------------------- 
-" Create the `tags` file (may need to install ctags first)
-command! MakeTags !ctags -R .
+" ignore these file extensions when looking for a file
+set wildignore+=*.log,*.blg,*.bbl,*.aux
+set wildignore+=*.npz,*.h5,*.hdf5
 
-" Now we can:
-" - Use ^] to jump to tag under cursor
-" - Use g^] for ambiguous tags
-" - Use ^t to jump back up the tag stack
+" prest Tab to auto-complete file names inside current path
+inoremap <C-F> <C-X><C-F>
+
+"" !
+""-------------------------------------------------------------- 
+"" TAG JUMPING
+""-------------------------------------------------------------- 
+"" Create the `tags` file (may need to install ctags first)
+"command! MakeTags !ctags -R .
+
+"" Now we can:
+"" - Use ^] to jump to tag under cursor
+"" - Use g^] for ambiguous tags
+"" - Use ^t to jump back up the tag stack
 
 "-------------------------------------------------------------- 
 " VIM USER INTERFACE    
@@ -54,32 +58,36 @@ command! MakeTags !ctags -R .
 set so=7
 
 "Always show current position
-set ruler
+" set ruler
 
 " Height of the command bar
-set cmdheight=2
+" set cmdheight=1
 
 " A buffer becomes hidden when it is abandoned
-set hid
+" set hid
 
 " Configure backspace so it acts as it should act
-set backspace=2
+" set backspace=2
 
+" !
 " Don't redraw while executing macros (good performance config)
-set lazyredraw
+" set lazyredraw
 
 " Show matching brackets when text indicator is over them
-set showmatch
+" set showmatch
 
 " How many tenths of a second to blink when matching brackets
-set mat=2
+" set mat=2
 
 " No annoying sound on errors
-" set noerrorbells
-" set novisualbell
-set vb t_vb=
+set noerrorbells visualbell t_vb=
+
+" !
 " timeout length used for mapping delays
-set tm=500
+" set tm=500
+
+" Show line numbers relative to cursor position
+set relativenumber
 
 "-------------------------------------------------------------- 
 " SEARCHING
@@ -107,11 +115,14 @@ noremap <c-space> ?
 syntax enable
 
 set termguicolors
-" default colorscheme
-colorscheme rupza
-" to toggle between colorschemes
-nnoremap <silent> <F9> :exec "color " .
-    \ ((g:colors_name == "rupza") ? "subtle_solo_light" : "rupza")<CR>
+colorscheme gruvbox
+set background=dark 
+" set termguicolors
+" " default colorscheme
+" colorscheme rupza
+" " to toggle between colorschemes
+" nnoremap <silent> <F9> :exec "color " .
+"     \ ((g:colors_name == "rupza") ? "subtle_solo_light" : "rupza")<CR>
 
 hi clear SpellBad
 hi SpellBad cterm=underline
@@ -120,15 +131,16 @@ hi SpellBad cterm=underline
 set encoding=utf8
 
 " Use Unix as the standard file type
-set ffs=unix,dos,mac
+" set ffs=unix,dos,mac
 
-"-------------------------------------------------------------- 
-" FILES, BACKUPS AND UNDO
-"-------------------------------------------------------------- 
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
+"" !
+""-------------------------------------------------------------- 
+"" FILES, BACKUPS AND UNDO
+""-------------------------------------------------------------- 
+"" Turn backup off, since most stuff is in SVN, git et.c anyway...
+"set nobackup
+"set nowb
+"set noswapfile
 
 "-------------------------------------------------------------- 
 " TEXT, TAB AND INDENT 
@@ -143,13 +155,13 @@ set smarttab
 set shiftwidth=2
 set tabstop=2
 
-" Linebreak on 80 characters
-set linebreak
-set textwidth=80
+" " Linebreak on 80 characters
+" set linebreak
+" set textwidth=80
 
 set autoindent
 set smartindent
-set wrap "Wrap lines
+set wrap "wrap lines when they are too large
 
 "-------------------------------------------------------------- 
 " VISUAL MODE
@@ -234,7 +246,7 @@ noremap <leader>ss :setlocal spell!<cr>
 " Toggle paste mode on and off
 noremap <leader>pp :setlocal paste!<cr>
 
-" Delete trailing white space on save, useful for Python and 
+" Delete trailing white space on save, useful for Python etc.
 func! DeleteTrailingWS()
   exe "normal mz"
   %s/\s\+$//ge
@@ -317,13 +329,22 @@ inoremap FF \begin{figure}[!htb]<CR>\centering<CR>\includegraphics{}<CR>\caption
 " to comment lines of code
 au BufRead,BufNewFile *.jl set filetype=julia
 autocmd FileType julia setlocal commentstring=#\ %s
+
+"-------------------------------------------------------------- 
+" EDIT PYTHON
+"-------------------------------------------------------------- 
+" python snippet
+nnoremap <leader>py :read $HOME/Templates/snippets/python.py<CR>
+
+au BufRead,BufNewFile *.jl set filetype=julia
+autocmd FileType julia setlocal commentstring=#\ %s
 "
-"-------------------------------------------------------------- 
-" PLOTTING
-"-------------------------------------------------------------- 
-" Shortcut to plot
-autocmd FileType gnuplot noremap <leader>pl :w \| :!gnuplot %:t <CR>
-autocmd FileType python noremap <leader>pl :w \| :!python %:t <CR>
-" commenting in gnuplot scripts
-au BufRead,BufNewFile *.plt     set filetype=gnuplot
-autocmd FileType gnuplot setlocal commentstring=#\ %s
+""-------------------------------------------------------------- 
+"" PLOTTING
+""-------------------------------------------------------------- 
+"" Shortcut to plot
+"autocmd FileType gnuplot noremap <leader>pl :w \| :!gnuplot %:t <CR>
+"autocmd FileType python noremap <leader>pl :w \| :!python %:t <CR>
+"" commenting in gnuplot scripts
+"au BufRead,BufNewFile *.plt     set filetype=gnuplot
+"autocmd FileType gnuplot setlocal commentstring=#\ %s
