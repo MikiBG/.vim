@@ -1,5 +1,11 @@
 let g:netrw_dirhistmax  =10
-let g:netrw_dirhist_cnt =3
+let g:netrw_dirhist_cnt =9
 let g:netrw_dirhist_1='/home/miguel/.vim'
 let g:netrw_dirhist_2='/home/miguel/DMRG'
 let g:netrw_dirhist_3='/home/miguel/Dropbox/Nuclei/Extended4step'
+let g:netrw_dirhist_4='/home/miguel/Dropbox/Thesis'
+let g:netrw_dirhist_5='/home/miguel/Research/old_projects/DoublonDecay/submit'
+let g:netrw_dirhist_6='/media/miguel/Elements/Ubuntu16/Dropbox/GloCharMi/newpaper/prb/arxiv'
+let g:netrw_dirhist_7='/home/miguel/Nuclei/inhom'
+let g:netrw_dirhist_8='/home/miguel/Nuclei/EntangledNuclei'
+let g:netrw_dirhist_9='/home/miguel/Desktop/dimerized'

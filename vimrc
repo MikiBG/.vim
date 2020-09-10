@@ -161,7 +161,8 @@ set tabstop=2
 
 set autoindent
 set smartindent
-set wrap "wrap lines when they are too large
+set wrap " wrap lines when they are too large
+set virtualedit=all " do not jump the screen on very long lines
 
 "-------------------------------------------------------------- 
 " VISUAL MODE
@@ -322,6 +323,7 @@ inoremap {{ \left\{\right\}<++><Esc>F\;i
 
 inoremap EE \begin{equation}<CR>\end{equation}<Esc>O
 inoremap FF \begin{figure}[!htb]<CR>\centering<CR>\includegraphics{}<CR>\caption{<++>}<CR>\end{figure}<Esc>2kf}i
+inoremap BB \begin{}<CR>\end{<++>}<Esc>kF}i
 
 "-------------------------------------------------------------- 
 " EDIT JULIA
@@ -348,3 +350,9 @@ autocmd FileType julia setlocal commentstring=#\ %s
 "" commenting in gnuplot scripts
 "au BufRead,BufNewFile *.plt     set filetype=gnuplot
 "autocmd FileType gnuplot setlocal commentstring=#\ %s
+
+"start new files in insert mode
+autocmd BufNewFile * startinsert
+
+"needed so that vim recognizes the file extension of new tex files"
+let g:tex_flavor = 'tex'
