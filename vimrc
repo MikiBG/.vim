@@ -356,3 +356,10 @@ autocmd BufNewFile * startinsert
 
 "needed so that vim recognizes the file extension of new tex files"
 let g:tex_flavor = 'tex'
+
+"so that splits are automatically resized when the terminal window
+"is resized
+autocmd VimResized * wincmd =
+
+"avoid double space after '.', '?' and '!'
+set nojoinspaces
