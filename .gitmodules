@@ -7,3 +7,6 @@
 [submodule "pack/plugins/start/julia-vim"]
 	path = pack/plugins/start/julia-vim
 	url = https://github.com/JuliaEditorSupport/julia-vim.git
+[submodule "pack/plugins/start/vim-surround"]
+	path = pack/plugins/start/vim-surround
+	url = https://github.com/tpope/vim-surround.git
